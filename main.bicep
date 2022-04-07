@@ -1,11 +1,11 @@
 param location string = resourceGroup().location
 
-module SpokevnetModule 'modules/vnet.bicep' = {
+module vnetModule 'vnet.bicep' = {
   dependsOn: [
     routeTableModule
     nsgModule
   ]
-  name: 'spokeVnet'
+  name: 'testVnet2'
   params: {
     location: location
     routeTableID: routeTableModule.outputs.routeTableID
@@ -13,26 +13,26 @@ module SpokevnetModule 'modules/vnet.bicep' = {
   }
 }
 
-module routeTableModule 'modules/udr.bicep' = {
+module routeTableModule 'udr.bicep' = {
   name: 'testVnet2UDR'
   params: {
     location: location
   }
 }
 
-module nsgModule 'modules/nsg.bicep' = {
+module nsgModule 'nsg.bicep' = {
   name: 'DefaultNSG'
   params: {
     location: location
   }
 }
 
-module vnetPeeringModule 'modules/vnetPeering.bicep' = {
+module vnetPeeringModule 'vnetPeering.bicep' = {
   dependsOn:[
-    SpokevnetModule
+    vnetModule
   ]
   name: 'VnetPeering'
   params:{
-    secondaryVnetId: SpokevnetModule.outputs.vnetid
+    secondaryVnetId: vnetModule.outputs.vnetid
   }
 }
