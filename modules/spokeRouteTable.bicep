@@ -16,10 +16,11 @@ resource myRouteTable 'Microsoft.Network/routeTables@2019-11-01' = {
           addressPrefix: rtSpokeAddressPrefix
           nextHopType: rtSpokeHopType
           nextHopIpAddress: rtSpokeHopIpAddress
+
         }
       }
     ]
-    disableBgpRoutePropagation: false
+    disableBgpRoutePropagation: true
   }
 }
 output routeTableID string = myRouteTable.id
