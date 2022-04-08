@@ -1,31 +1,16 @@
-param primeVnetId string = '/subscriptions/d222169f-abbc-4278-93f7-24adc6b3eecc/resourceGroups/demo-rg/providers/Microsoft.Network/virtualNetworks/testVnet'
-param secondaryVnetId string = ''
-param vnet2 string = 'testVnet2/Vnet2toVnet1'
-param vnet1 string = 'testVnet/testVnet1toTestVnet2'
+param remoteVnetId string
+param vnetName string
+param remoteGateways bool  
 
-resource PeeringTestVnet2toTestVnet1 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {
-  name: vnet2
+resource myVnetPeering 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {
+  name: vnetName
   properties: {
     allowVirtualNetworkAccess: true
     allowForwardedTraffic: true
     allowGatewayTransit: true
-    useRemoteGateways: false
+    useRemoteGateways: remoteGateways
     remoteVirtualNetwork: {
-      id: primeVnetId
-    }
-  }
-}
-
-
-resource PeeringTestVnet1toTestVnet2 'Microsoft.Network/virtualNetworks/virtualNetworkPeerings@2020-07-01' = {
-  name: vnet1
-  properties: {
-    allowVirtualNetworkAccess: true
-    allowForwardedTraffic: true
-    allowGatewayTransit: true
-    useRemoteGateways: false
-    remoteVirtualNetwork: {
-      id: secondaryVnetId
+      id: remoteVnetId
     }
   }
 }
