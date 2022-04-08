@@ -1,5 +1,5 @@
-param name string = 'DefaultNSG'
-param location string = resourceGroup().location
+param name string 
+param location string 
 
 resource MyNSG 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
   name: name
