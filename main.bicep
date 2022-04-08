@@ -70,7 +70,7 @@ module spokeVnetPeeringModule 'modules/vnetPeering.bicep' = {
   scope: resourceGroup(spokesubscriptionId,spokeResourceGroup)
   dependsOn: [
     SpokeVnetModule
-    existingHubVnet
+    
   ]
   name : 'spokePeering'
   params: {
@@ -91,7 +91,7 @@ module hubVnetPeeringModule 'modules/vnetPeering.bicep' = {
   scope:resourceGroup(hubSubscriptionId,hubResourceGroup)
   dependsOn: [
     SpokeVnetModule
-    existingHubVnet
+    
   ]
   name: 'hubPeeringName'
   params:{
